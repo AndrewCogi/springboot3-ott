@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="icon" href="/favicon.ico">
+    <title>Error Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+			background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            border: 1px solid #f5c6cb;
+        }
+        p {
+            margin: 12px;
+        }
+        .status {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p class="status">Status Code: <span th:text="${statusCode}"></span></p>
+        <p>Status Message: <span th:text="${statusMessage}"></span></p>
+        <p>Error Details: <span th:text="${errorMessage}"></span></p>
+    </div>
+</body>
+</html>

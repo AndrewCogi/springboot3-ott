@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="icon" href="/favicon.ico">
+	<title>Verification Successful</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			background-color: #f4f4f9;
+		}
+
+		.container {
+			max-width: 600px;
+			margin: 50px auto;
+			background: white;
+			padding: 15px;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+			border-radius: 8px;
+			border: 1px solid #d4edda;
+		}
+
+		h1 {
+			font-size: 24px;
+			color: #28a745;
+			text-align: center;
+			margin-bottom: 20px;
+		}
+
+		p {
+			margin: 12px;
+			color: #555;
+		}
+
+		.highlight {
+			font-weight: bold;
+			color: #333;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Verification Successful</h1>
+		<p>환영합니다, <span class="highlight" th:text="${userEmail}"></span> 님!</p>
+		<p th:utext="${successMessage}"></p>
+		<p>이 인증 정보는 <span class="highlight" th:text="${ttl}"></span>분 동안 유효합니다.</p>
+	</div>
+</body>
+
+</html>

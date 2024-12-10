@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    include: redis
+
+server:
+  address: 0.0.0.0
