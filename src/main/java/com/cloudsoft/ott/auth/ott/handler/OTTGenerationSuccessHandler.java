@@ -12,6 +12,7 @@ import com.cloudsoft.ott.auth.ott.dto.OTTGenerationDTO;
 import com.cloudsoft.ott.auth.ott.service.AuthStatusService;
 import com.cloudsoft.ott.core.dto.ResponseData;
 import com.cloudsoft.ott.core.enums.ResponseCode;
+import com.cloudsoft.ott.core.util.EmailSender;
 import com.cloudsoft.ott.core.util.ResponseBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -23,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class OTTGenerationSuccessHandler implements OneTimeTokenGenerationSuccessHandler {
-	//private final EmailSender EmailSender;
+	private final EmailSender emailSender;
 	private final AuthStatusService authStatusService;
 
 	@Override
@@ -40,6 +41,9 @@ public class OTTGenerationSuccessHandler implements OneTimeTokenGenerationSucces
 		authStatusService.generate(userEmail, authKey);
 
 		// 이메일 전송
+		String url = "http://192.168.35.91:8080/auth/ott/login?token=" + tokenValue;
+		emailSender.sendVerificationEmail(userEmail, url);
+
 		System.out.println(
 				"Email Message : Click this link for verification [http://localhost:8080/auth/ott/login?token="
 						+ tokenValue + "]");

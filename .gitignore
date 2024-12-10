@@ -1,6 +1,7 @@
 HELP.md
 .DS_Store
 .gradle
+docker/redis/data/
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/

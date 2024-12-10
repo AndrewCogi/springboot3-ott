@@ -35,6 +35,8 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	// thymeleaf
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	// mail
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	// jackson time module (for OneTimeToken.Instant)
 	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 

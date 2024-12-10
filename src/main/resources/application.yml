@@ -1,6 +1,6 @@
 spring:
   profiles:
-    include: redis
+    include: redis, mail
 
 server:
   address: 0.0.0.0
