@@ -25,7 +25,7 @@ public class AuthStatusService {
 		return authStatus;
 	}
 
-	public AuthStatus consume(String userEmail) {
+	public AuthStatus get(String userEmail) {
 		// AuthStatus 조회
 		AuthStatus authStatus = authStatusRepository.getAuthStatus(userEmail);
 
@@ -34,9 +34,13 @@ public class AuthStatusService {
 			return null;
 		}
 
-		// Valid : AuthStatus 반환 (+Redis 에서 삭제)
-		authStatusRepository.deleteAuthStatus(userEmail);
+		// Valid : AuthStatus 반환
 		return authStatus;
+	}
+
+	public void delete(String userEmail) {
+		// Redis에서 삭제
+		authStatusRepository.deleteAuthStatus(userEmail);
 	}
 
 	public AuthStatus setVerify(String userEmail, boolean isVerified) {

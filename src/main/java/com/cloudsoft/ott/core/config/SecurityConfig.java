@@ -53,15 +53,14 @@ public class SecurityConfig {
 
 				// [OneTimeToken 설정]
 				// [OTT 전체 흐름]
-				// tokenGeneratingUrl 로 토큰 생성 요청
-				// tokenService 가 토큰 생성 및 저장
-				// tokenGenerationSuccessHandler 가 OTT 를 사용자 Email 로 전송
-				// 사용자가 OTTVerificationController 로 검증 요청(GET)
+				// 사용자가 tokenGeneratingUrl 로 토큰 생성 요청
+				// OTTService 가 토큰 생성 및 저장
+				// OTTGenerationSuccessHandler 가 AuthKey 생성 및 저장 후, OTT 인증 링크를 사용자 Email로 전송하고 AuthKey와 OTT 를 JSON으로 반환
+				// 사용자가 OTTVerificationController 로 검증 요청(이메일 링크 클릭, GET)
 				// OTTVerificationController 가 loginProcessingUrl 로 검증 요청(POST)
-				// authenticationProvider 가 tokenService를 사용하여 검증(조회 및 조회 성공 시 삭제) 및
-				// Authentication 객체 생성
-				// 검증 성공 시, authenticationSuccessHandler가 이후 로직 처리
-				// 검증 실패 시, authenticationFailureHandler 이후 로직 처리
+				// OTTauthenticationProvider 가 OTTService를 사용하여 검증(조회 & 조회 성공 시 삭제) 및 Authentication 객체 생성
+				// 검증 성공 시, OTTauthenticationSuccessHandler가 이후 로직 처리
+				// 검증 실패 시, OTTauthenticationFailureHandler 이후 로직 처리
 				.oneTimeTokenLogin((ott) -> {
 					// OTT 입력 페이지 비활성화 (DefaultOneTimeTokenSubmitPageGeneratingFilter 비활성화)
 					ott.showDefaultSubmitPage(false);
@@ -75,15 +74,12 @@ public class SecurityConfig {
 					// 역할 : OTT 생성 및 Redis 에 저장 / OTT 조회 및 검증, Redis에서 삭제
 					ott.tokenService(ottService);
 					// OTT 생성 성공 이후 로직을 담당할 Handler 설정
-					// 역할 : OTT 를 인자로 받아 Email 작성 및 전송
 					ott.tokenGenerationSuccessHandler(ottGenerationSuccessHandler);
-					// OTT 검증을 담당. 이후 결과에 따라 SuccessHandler, FailureHandler로 넘김
+					// OTT 검증을 담당. 결과에 따라 SuccessHandler, FailureHandler로 넘김
 					ott.authenticationProvider(ottAuthenticationProvider);
 					// OTT 인증 성공 이후 로직을 담당할 Handler 설정
-					// 역할 : Jwt 발행 및 Redis 에 저장
 					ott.authenticationSuccessHandler(ottLoginSuccessHandler);
 					// OTT 인증 실패 이후 로직을 담당할 Handler 설정
-					// 역할 : 인증 실패 이유 반환
 					ott.authenticationFailureHandler(ottLoginFailureHandler);
 				});
 
